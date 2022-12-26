@@ -23,7 +23,8 @@ export default class MainContent extends Component {
   }
 
   //   Click event
-  onRefreshClick() {
-    console.log("Event fired");
-  }
+  onRefreshClick = () => {
+    // console.log("Event fired");
+    this.setState({ customersCount: this.state.customersCount + 22 });
+  };
 }
