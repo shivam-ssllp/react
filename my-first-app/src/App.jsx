@@ -8,7 +8,7 @@ export default class App extends Component {
       <React.Fragment>
         <Navbar />
         <MainContent />
-      </React.Fragment>  
+      </React.Fragment>
     );
   }
 }
