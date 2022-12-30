@@ -24,6 +24,7 @@ export default class ShoppingCart extends Component {
                 product={prod}
                 onIncrement={this.handleIncrement}
                 onDecrement={this.handleDecrement}
+                onDelete={this.handleDelete}
               >
                 <button className="btn btn-secondary">Buy now</button>
               </Product>
@@ -35,21 +36,34 @@ export default class ShoppingCart extends Component {
   }
 
   // render method ends here
-  handleIncrement = (product) => {
+  handleIncrement = (product, maxValue) => {
     let allProducts = [...this.state.products];
     let index = allProducts.indexOf(product);
-    allProducts[index].quantity++;
+    if (allProducts[index].quantity < maxValue) {
+      allProducts[index].quantity++;
 
-    this.setState({ products: allProducts });
+      this.setState({ products: allProducts });
+    }
   };
 
-  handleDecrement = (product) => {
+  handleDecrement = (product, minValue) => {
     let allProducts = [...this.state.products];
     let index = allProducts.indexOf(product);
-    if (this.state.products.quantity > 1) {
+    if (allProducts[index].quantity > minValue) {
       allProducts[index].quantity--;
     }
 
     this.setState({ products: allProducts });
+  };
+
+  handleDelete = (product) => {
+    let allProducts = [...this.state.products];
+    let index = allProducts.indexOf(product);
+
+    if (window.confirm("Are you Sure ??")) {
+      allProducts.splice(index, 1);
+
+      this.setState({ products: allProducts });
+    }
   };
 }
