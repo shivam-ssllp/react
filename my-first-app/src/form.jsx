@@ -48,12 +48,20 @@ export default class Form extends Component {
     );
   }
 
-  onLoginClick = () => {
+  onLoginClick = async () => {
     console.log(this.state);
-    if (
-      this.state.email === "shivssk786@gmail.com" &&
-      this.state.password === "charlie"
-    ) {
+
+    var response = await fetch(
+      `http://localhost:5000/users?email=${this.state.email}&password=${this.state.password}`
+      // `http://localhost:5000/users?email=shivam24@gmail.com&password=joker`
+    );
+    console.log(response);
+    console.log(this.state.email);
+    console.log(this.state.password);
+
+    var body = await response.json();
+    console.log(body);
+    if (body.length > 0) {
       // Success
       this.setState({
         message: <span className="text-success">Successfully Logged-in</span>,
@@ -61,7 +69,7 @@ export default class Form extends Component {
     } else {
       // Fail
       this.setState({
-        message: <span className="text-danger">Login failed</span>,
+        message: <span className="text-danger">Invalid Login Id/password</span>,
       });
     }
   };

@@ -2,16 +2,13 @@ import React, { Component } from "react";
 import Product from "./product";
 
 export default class ShoppingCart extends Component {
-  state = {
-    products: [
-      { id: 1, productName: "iPhone", price: 8900, quantity: 0 },
-      { id: 2, productName: "Samsung LED Tv", price: 877, quantity: 0 },
-      { id: 3, productName: "Sony Camera", price: 7745, quantity: 0 },
-      { id: 4, productName: "iPad Pro", price: 7373, quantity: 0 },
-      { id: 5, productName: "Xbox", price: 8373, quantity: 0 },
-      { id: 6, productName: "Dell Monitor", price: 8737, quantity: 0 },
-    ],
-  };
+  constructor() {
+    super();
+    this.state = {
+      products: [],
+    };
+  }
+
   render() {
     return (
       <div className="container-fluid">
@@ -34,6 +31,15 @@ export default class ShoppingCart extends Component {
       </div>
     );
   }
+
+  componentDidMount = async () => {
+    // console.log("mount function executed");
+    var response = await fetch("http://localhost:5000/product", {
+      method: "GET",
+    });
+    var prods = await response.json();
+    this.setState({ products: prods });
+  };
 
   // render method ends here
   handleIncrement = (product, maxValue) => {
