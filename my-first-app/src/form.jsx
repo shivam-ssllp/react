@@ -7,7 +7,7 @@ export default class Form extends Component {
   }
   render() {
     return (
-      <div className="col-lg-9">
+      <div className="col-lg-9 mx-auto my-5">
         <h4 className="m-1 p-2 border-bottom">Login</h4>
 
         {/* Email */}
@@ -37,13 +37,15 @@ export default class Form extends Component {
         </div>
 
         {/* Button */}
-        {this.state.message}
-        <button
-          className="btn btn-primary float-end"
-          onClick={this.onLoginClick}
-        >
-          Login
-        </button>
+        <div className="form-group form-row col-lg-4 my-3">
+          {this.state.message}
+          <button
+            className="btn btn-primary float-end"
+            onClick={this.onLoginClick}
+          >
+            Login
+          </button>
+        </div>
       </div>
     );
   }
