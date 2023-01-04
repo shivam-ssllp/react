@@ -15,3 +15,8 @@
 .hand-icon {
   cursor: pointer;
 }
+
+.nav-link.active {
+  color: rgba(36, 214, 36, 0.936) !important;
+  border-bottom: 1px solid white;
+}

@@ -68,6 +68,8 @@ export default class Form extends Component {
       this.setState({
         message: <span className="text-success">Successfully Logged-in</span>,
       });
+
+      this.props.UpdateIsLoggedInStatus(true);
     } else {
       // Fail
       this.setState({

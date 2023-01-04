@@ -1,6 +1,6 @@
 import React from "react";
 import { Component } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./index.css";
 
 class NavBar extends Component {
@@ -9,9 +9,9 @@ class NavBar extends Component {
       <React.Fragment>
         <nav className="navbar navbar-expand-lg bg-light navbar-style">
           <div className="container-fluid">
-            <a className="navbar-brand text-light" href="#">
+            <NavLink className="navbar-brand text-light" to="/">
               My eCommerce
-            </a>
+            </NavLink>
             <button
               className="navbar-toggler"
               type="button"
@@ -28,30 +28,60 @@ class NavBar extends Component {
               id="navbarSupportedContent"
             >
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                <li className="nav-item">
-                  <Link
-                    className="nav-link active text-light"
-                    aria-current="page"
-                    to="/"
-                  >
-                    Home
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link text-light" to="/dashboard">
-                    Dashboard
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link text-light" to="/customers">
-                    Customers
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link text-light" to="/cart">
-                    Cart
-                  </Link>
-                </li>
+                {!this.props.isLoggedIn ? (
+                  <li className="nav-item">
+                    <NavLink
+                      className="nav-link text-light"
+                      aria-cur
+                      activeClassName="active"
+                      to="/"
+                    >
+                      Home
+                    </NavLink>
+                  </li>
+                ) : (
+                  ""
+                )}
+                ;
+                {this.props.isLoggedIn ? (
+                  <li className="nav-item">
+                    <NavLink
+                      className="nav-link text-light"
+                      to="/dashboard"
+                      activeClassName="active"
+                    >
+                      Dashboard
+                    </NavLink>
+                  </li>
+                ) : (
+                  ""
+                )}
+                {this.props.isLoggedIn ? (
+                  <li className="nav-item">
+                    <NavLink
+                      className="nav-link text-light"
+                      to="/customers"
+                      activeClassName="active"
+                    >
+                      Customers
+                    </NavLink>
+                  </li>
+                ) : (
+                  ""
+                )}
+                {this.props.isLoggedIn ? (
+                  <li className="nav-item">
+                    <NavLink
+                      className="nav-link text-light"
+                      to="/cart"
+                      activeClassName="active"
+                    >
+                      Cart
+                    </NavLink>
+                  </li>
+                ) : (
+                  ""
+                )}
               </ul>
             </div>
           </div>
