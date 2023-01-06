@@ -29,7 +29,7 @@ export default class App extends Component {
               />
             )}
           />
-          <Route path="/dashboard" render={() => <Dashboard />} exact />
+          <Route path="/dashboard" element={<Dashboard />} exact />
           <Route path="/customers" element={<MainContent />} exact />
           <Route path="/cart" element={<ShoppingCart />} exact />
           <Route path="*" element={<PageNotFound />} exact />
