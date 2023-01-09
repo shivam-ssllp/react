@@ -2,6 +2,7 @@ import React from "react";
 import { Component } from "react";
 import { NavLink } from "react-router-dom";
 import "./index.css";
+import history from "./history";
 
 class NavBar extends Component {
   render() {
@@ -9,9 +10,13 @@ class NavBar extends Component {
       <React.Fragment>
         <nav className="navbar navbar-expand-lg bg-light navbar-style">
           <div className="container-fluid">
-            <NavLink className="navbar-brand text-light" to="/">
+            <a
+              className="navbar-brand text-light"
+              href="/#"
+              onClick={this.onlogoutClick}
+            >
               My eCommerce
-            </NavLink>
+            </a>
             <button
               className="navbar-toggler"
               type="button"
@@ -28,6 +33,7 @@ class NavBar extends Component {
               id="navbarSupportedContent"
             >
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                {/* Home */}
                 {!this.props.isLoggedIn ? (
                   <li className="nav-item">
                     <NavLink
@@ -42,7 +48,8 @@ class NavBar extends Component {
                 ) : (
                   ""
                 )}
-                ;
+
+                {/* Dashboard */}
                 {this.props.isLoggedIn ? (
                   <li className="nav-item">
                     <NavLink
@@ -56,6 +63,8 @@ class NavBar extends Component {
                 ) : (
                   ""
                 )}
+
+                {/* Customers */}
                 {this.props.isLoggedIn ? (
                   <li className="nav-item">
                     <NavLink
@@ -69,6 +78,8 @@ class NavBar extends Component {
                 ) : (
                   ""
                 )}
+
+                {/* Cart */}
                 {this.props.isLoggedIn ? (
                   <li className="nav-item">
                     <NavLink
@@ -82,6 +93,21 @@ class NavBar extends Component {
                 ) : (
                   ""
                 )}
+
+                {/* Logout */}
+                {this.props.isLoggedIn ? (
+                  <li className="nav-item">
+                    <a
+                      className="nav-link text-light"
+                      href="/#"
+                      onClick={this.onlogoutClick}
+                    >
+                      Logout
+                    </a>
+                  </li>
+                ) : (
+                  ""
+                )}
               </ul>
             </div>
           </div>
@@ -89,6 +115,13 @@ class NavBar extends Component {
       </React.Fragment>
     );
   }
+
+  onlogoutClick = (event) => {
+    event.preventDefault();
+    this.props.updateIsLoggedInStatus(false);
+
+    history.replace("/");
+  };
 }
 
 export default NavBar;

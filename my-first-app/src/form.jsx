@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import history from "./history";
 
 export default class Form extends Component {
   constructor(props) {
@@ -50,16 +51,17 @@ export default class Form extends Component {
     );
   }
 
-  onLoginClick = async () => {
+  onLoginClick = async (event) => {
     console.log(this.state);
+    // event.preventDefault();
 
     var response = await fetch(
       `http://localhost:5000/users?email=${this.state.email}&password=${this.state.password}`
       // `http://localhost:5000/users?email=shivam24@gmail.com&password=joker`
     );
-    console.log(response);
-    console.log(this.state.email);
-    console.log(this.state.password);
+    // console.log(response);
+    // console.log(this.state.email);
+    // console.log(this.state.password);
 
     var body = await response.json();
     console.log(body);
@@ -69,7 +71,10 @@ export default class Form extends Component {
         message: <span className="text-success">Successfully Logged-in</span>,
       });
 
-      this.props.UpdateIsLoggedInStatus(true);
+      this.props.updateIsLoggedInStatus(true);
+
+      // navigate to homepage
+      history.replace("/dashboard");
     } else {
       // Fail
       this.setState({

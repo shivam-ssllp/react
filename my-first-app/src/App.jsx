@@ -5,9 +5,11 @@ import Form from "./form";
 import MainContent from "./mainContent";
 import Dashboard from "./dashboard";
 import { Route, Routes } from "react-router";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import ShoppingCart from "./shoppingCart";
 import PageNotFound from "./pagenotfound";
+import history from "./history";
+import Sidebar from "./sidebar";
 
 export default class App extends Component {
   constructor(props) {
@@ -17,32 +19,48 @@ export default class App extends Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <Navbar isLoggedIn={this.state.isLoggedIn} />
-        <Routes>
-          <Route
-            path="/"
-            render={(props) => (
-              <Form
-                {...props}
-                updateIsLoggedInStatus={this.updateIsLoggedInStatus}
+      <Router history={history}>
+        <Navbar
+          isLoggedIn={this.state.isLoggedIn}
+          updateIsLoggedInStatus={this.updateIsLoggedInStatus}
+        />
+
+        <div className="row">
+          <div className={this.state.isLoggedIn ? "col-lg-3" : ""}>
+            {this.state.isLoggedIn ? <Sidebar /> : ""}
+          </div>
+          <div className="col-lg-9">
+            <Routes>
+              <Route
+                path="/"
+                // render={(props) => (
+                //   <Form
+                //     {...props}
+                //     updateIsLoggedInStatus={this.updateIsLoggedInStatus}
+                //   />
+                // )}
+                element={
+                  <Form updateIsLoggedInStatus={this.updateIsLoggedInStatus} />
+                }
               />
-            )}
-          />
-          <Route path="/dashboard" element={<Dashboard />} exact />
-          <Route path="/customers" element={<MainContent />} exact />
-          <Route path="/cart" element={<ShoppingCart />} exact />
-          <Route path="*" element={<PageNotFound />} exact />
-        </Routes>
+              <Route path="/Form" element={<Form />} exact />
+              <Route path="/dashboard" element={<Dashboard />} exact />
+              <Route path="/customers" element={<MainContent />} exact />
+              <Route path="/cart" element={<ShoppingCart />} exact />
+              <Route path="*" element={<PageNotFound />} exact />
+            </Routes>
+          </div>
+        </div>
         {/* <Route path="/dashboard" exact component={Dashboard} />
         <Route path="/customers" exact component={MainContent} />
         <Route path="/cart" exact component={ShoppingCart} /> */}
-      </BrowserRouter>
+      </Router>
       // <Form />
     );
   }
 
   updateIsLoggedInStatus = (stats) => {
     this.setState({ isLoggedIn: stats });
+    console.log("updateIsloggedin status function running");
   };
 }
