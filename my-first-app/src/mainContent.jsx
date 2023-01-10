@@ -88,6 +88,10 @@ export default class MainContent extends Component {
     );
   }
 
+  componentDidMount() {
+    document.title = "Customers - eCommerce";
+  }
+
   //   Click event
   onRefreshClick = () => {
     // console.log("Event fired");

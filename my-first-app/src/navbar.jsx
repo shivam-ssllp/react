@@ -2,7 +2,6 @@ import React from "react";
 import { Component } from "react";
 import { NavLink } from "react-router-dom";
 import "./index.css";
-import history from "./history";
 
 class NavBar extends Component {
   render() {
@@ -120,7 +119,7 @@ class NavBar extends Component {
     event.preventDefault();
     this.props.updateIsLoggedInStatus(false);
 
-    history.replace("/");
+    document.location.hash("/");
   };
 }
 

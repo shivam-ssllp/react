@@ -5,7 +5,7 @@ import Form from "./form";
 import MainContent from "./mainContent";
 import Dashboard from "./dashboard";
 import { Route, Routes } from "react-router";
-import { BrowserRouter as Router } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import ShoppingCart from "./shoppingCart";
 import PageNotFound from "./pagenotfound";
 import history from "./history";
@@ -20,7 +20,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <Router history={history}>
+      <HashRouter>
         <Navbar
           isLoggedIn={this.state.isLoggedIn}
           updateIsLoggedInStatus={this.updateIsLoggedInStatus}
@@ -56,7 +56,7 @@ export default class App extends Component {
         {/* <Route path="/dashboard" exact component={Dashboard} />
         <Route path="/customers" exact component={MainContent} />
         <Route path="/cart" exact component={ShoppingCart} /> */}
-      </Router>
+      </HashRouter>
       // <Form />
     );
   }

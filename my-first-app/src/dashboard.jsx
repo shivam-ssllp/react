@@ -9,6 +9,6 @@ export default class Dashboard extends Component {
   }
 
   componentDidMount() {
-    // console.log("Dashboard component rendered");
+    document.title = "Dashboard - eCommerce";
   }
 }

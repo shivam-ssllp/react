@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import history from "./history";
 
 export default class Form extends Component {
   constructor(props) {
@@ -49,6 +48,10 @@ export default class Form extends Component {
         </div>
       </div>
     );
+  } // End od render
+
+  componentDidMount() {
+    document.title = "Login - eCommerce";
   }
 
   onLoginClick = async (event) => {
@@ -74,7 +77,7 @@ export default class Form extends Component {
       this.props.updateIsLoggedInStatus(true);
 
       // navigate to homepage
-      history.replace("/dashboard");
+      this.props.history.replace("/dashboard");
     } else {
       // Fail
       this.setState({

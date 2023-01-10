@@ -39,6 +39,8 @@ export default class ShoppingCart extends Component {
     });
     var prods = await response.json();
     this.setState({ products: prods });
+
+    document.title = "Shopping Cart - eCommerce";
   };
 
   // render method ends here

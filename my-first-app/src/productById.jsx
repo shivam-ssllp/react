@@ -5,6 +5,7 @@ export default class ProductById extends Component {
   constructor(props) {
     super(props);
     this.state = { product: {} };
+    // const { id } = useParams();
   }
   render() {
     console.log(this.state.product);
@@ -60,11 +61,6 @@ export default class ProductById extends Component {
   }
 
   componentDidMount() {
-    console.log(this.state.routeParams);
-    console.log("ProductById running");
+    document.title = "Product  Details - eCommerce";
   }
 }
-
-const Product = () => {
-  const routeParams = useParams();
-};

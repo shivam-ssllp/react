@@ -65,7 +65,6 @@ export default class Product extends Component {
   }
 
   componentDidMount() {
-    // console.log(this.props.useParams);
-    // console.log("Did mount method rendered of product");
+    // document.title = "Dashboard - eCommerce";
   }
 }
