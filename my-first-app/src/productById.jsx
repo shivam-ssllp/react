@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-export default class Product extends Component {
+export default class ProductById extends Component {
   constructor(props) {
     super(props);
-    this.state = { product: this.props.product };
+    this.state = { product: {} };
   }
-
   render() {
+    console.log(this.state.product);
     return (
       <div className="col-lg-4">
         <div className="card m-2">
@@ -51,12 +51,7 @@ export default class Product extends Component {
                   </button>
                 </div>
               </div>
-              <div className="float-end">
-                <Link to={`/product/${this.state.product.id}`} className="me-2">
-                  Details
-                </Link>
-                {this.props.children}
-              </div>
+              <div className="float-end">{this.props.children}</div>
             </div>
           </div>
         </div>
@@ -65,7 +60,11 @@ export default class Product extends Component {
   }
 
   componentDidMount() {
-    // console.log(this.props.useParams);
-    // console.log("Did mount method rendered of product");
+    console.log(this.state.routeParams);
+    console.log("ProductById running");
   }
 }
+
+const Product = () => {
+  const routeParams = useParams();
+};

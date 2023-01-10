@@ -10,6 +10,7 @@ import ShoppingCart from "./shoppingCart";
 import PageNotFound from "./pagenotfound";
 import history from "./history";
 import Sidebar from "./sidebar";
+import ProductById from "./productById";
 
 export default class App extends Component {
   constructor(props) {
@@ -26,7 +27,7 @@ export default class App extends Component {
         />
 
         <div className="row">
-          <div className={this.state.isLoggedIn ? "col-lg-3" : ""}>
+          <div className={this.state.isLoggedIn ? "col-lg-2" : ""}>
             {this.state.isLoggedIn ? <Sidebar /> : ""}
           </div>
           <div className="col-lg-9">
@@ -47,6 +48,7 @@ export default class App extends Component {
               <Route path="/dashboard" element={<Dashboard />} exact />
               <Route path="/customers" element={<MainContent />} exact />
               <Route path="/cart" element={<ShoppingCart />} exact />
+              <Route path="/product/:id" element={<ProductById />} />
               <Route path="*" element={<PageNotFound />} exact />
             </Routes>
           </div>

@@ -52,7 +52,7 @@ export default class Form extends Component {
   }
 
   onLoginClick = async (event) => {
-    console.log(this.state);
+    // console.log(this.state);
     // event.preventDefault();
 
     var response = await fetch(
@@ -64,7 +64,7 @@ export default class Form extends Component {
     // console.log(this.state.password);
 
     var body = await response.json();
-    console.log(body);
+    // console.log(body);
     if (body.length > 0) {
       // Success
       this.setState({
