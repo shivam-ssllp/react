@@ -8,9 +8,9 @@ import { Route, Routes } from "react-router";
 import { HashRouter } from "react-router-dom";
 import ShoppingCart from "./shoppingCart";
 import PageNotFound from "./pagenotfound";
-import history from "./history";
 import Sidebar from "./sidebar";
 import ProductById from "./productById";
+import NewCustomer from "./insertCustomer";
 
 export default class App extends Component {
   constructor(props) {
@@ -49,6 +49,7 @@ export default class App extends Component {
               <Route path="/customers" element={<MainContent />} exact />
               <Route path="/cart" element={<ShoppingCart />} exact />
               <Route path="/product/:id" element={<ProductById />} />
+              <Route path="/new-customer" element={<NewCustomer />} />
               <Route path="*" element={<PageNotFound />} exact />
             </Routes>
           </div>
