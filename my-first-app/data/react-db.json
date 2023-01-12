@@ -49,24 +49,6 @@
   ],
   "customers": [
     {
-      "id": 1,
-      "name": "Shivam",
-      "phone": "7860345351",
-      "address": {
-        "city": "Lucknow"
-      },
-      "photo": "https://source.unsplash.com/random/?boy"
-    },
-    {
-      "id": 2,
-      "name": "Prashant",
-      "phone": "6392433299",
-      "address": {
-        "city": "Chandanpur"
-      },
-      "photo": "https://source.unsplash.com/random/?boy"
-    },
-    {
       "id": 3,
       "name": "Shivpal",
       "phone": "9936121819",
@@ -76,34 +58,49 @@
       "photo": "https://source.unsplash.com/random/?man"
     },
     {
-      "id": 4,
-      "name": "Kaiwalya",
-      "phone": null,
+      "name": "Ayush",
       "address": {
-        "city": "Gorakhpur"
+        "city": "Lucknow"
       },
-      "photo": "https://source.unsplash.com/random/?boy"
+      "phone": "7905615107",
+      "photo": "kjdsfjdsfjksdfs",
+      "id": 8
     },
     {
-      "id": 5,
+      "name": "Shivam",
+      "address": {
+        "city": "Lucknow"
+      },
+      "phone": "7860345351@gmail.com",
+      "photo": "no photo",
+      "id": 9
+    },
+    {
       "name": "Abhishek",
-      "phone": "",
       "address": {
         "city": "Barabanki"
       },
-      "photo": "https://source.unsplash.com/random/?man"
+      "phone": "893274238",
+      "photo": "assjkdsa",
+      "id": 10
     },
     {
-      "id": 6,
       "name": "Mohini",
-      "phone": "7465846476",
       "address": {
-        "city": "Lakhimpur"
+        "city": "Lakhimipur"
       },
-      "photo": "https://source.unsplash.com/random/?girl"
+      "phone": "98734190823",
+      "photo": "asjjadsfjsakn",
+      "id": 11
     },
     {
-      "id": 7
+      "name": "Seema",
+      "address": {
+        "city": "Lakhimipur"
+      },
+      "phone": "8732443243",
+      "photo": "asskjhjddas",
+      "id": 12
     }
   ]
 }

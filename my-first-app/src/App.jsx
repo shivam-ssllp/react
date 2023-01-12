@@ -11,6 +11,7 @@ import PageNotFound from "./pagenotfound";
 import Sidebar from "./sidebar";
 import ProductById from "./productById";
 import NewCustomer from "./insertCustomer";
+import EditCustomer from "./editCustomer";
 
 export default class App extends Component {
   constructor(props) {
@@ -49,7 +50,8 @@ export default class App extends Component {
               <Route path="/customers" element={<MainContent />} exact />
               <Route path="/cart" element={<ShoppingCart />} exact />
               <Route path="/product/:id" element={<ProductById />} />
-              <Route path="/new-customer" element={<NewCustomer />} />
+              <Route path="/new-customer" element={<NewCustomer />} exact />
+              <Route path="/edit-customer/:id" element={<EditCustomer />} />
               <Route path="*" element={<PageNotFound />} exact />
             </Routes>
           </div>

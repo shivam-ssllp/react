@@ -12,8 +12,10 @@ export default class MainContent extends Component {
   }
 
   customerNameStyle = (custName) => {
-    if (custName.startsWith("S")) return "green-highlight border-end";
-    else if (custName.startsWith("M")) return "red-highlight border-start";
+    if (custName.startsWith("S")) return "red-highlight border-end";
+    else if (custName.startsWith("M")) return "green-highlight border-start";
+    else if (custName.startsWith("A"))
+      return "secondary-highlight border-start";
     else return "";
   };
 
@@ -53,11 +55,11 @@ export default class MainContent extends Component {
     document.title = "Customers - eCommerce";
 
     // 'get' request/ customers
-    let response = await fetch("http://localhost:5000/customers", {
+    var response = await fetch("http://localhost:5000/customers", {
       method: "GET",
     });
 
-    let body = await response.json();
+    var body = await response.json();
     console.log(body);
     this.setState({ customers: body });
     console.log("mounted");
@@ -68,15 +70,16 @@ export default class MainContent extends Component {
   };
 
   getCustomerRow = () => {
-    console.log("getting cx data" + this.state.customers);
+    // console.log("getting cx data" + this.state.customers);
     return this.state.customers.map((cust, index) => {
-      console.log(
-        cust.id,
-        cust.name,
-        cust.phone,
-        cust.address.city,
-        cust.photo
-      );
+      // console.log(
+      //   cust.id,
+      //   cust.name,
+      //   cust.phone,
+      //   cust.address.city,
+      //   cust.photo
+      // );
+      console.log(cust.name, index);
       return (
         <tr key={cust.id}>
           <td>{cust.id}</td>
@@ -103,6 +106,17 @@ export default class MainContent extends Component {
               </button>
             </div>
           </td>
+          <td>
+            <Link to={`/edit-customer/${cust.id}`}>Edit</Link>
+          </td>
+          <td>
+            <button
+              className="btn btn-danger"
+              onClick={() => this.onDeleteClick(cust.id)}
+            >
+              Delete
+            </button>
+          </td>
         </tr>
       );
     });
@@ -112,5 +126,25 @@ export default class MainContent extends Component {
     var custArr = this.state.customers;
     custArr[index].photo = "https://source.unsplash.com/random";
     this.setState({ customers: custArr });
+  };
+
+  onDeleteClick = async (id) => {
+    console.log(id);
+    if (window.confirm("Are you Sure ?")) {
+      var response = await fetch(`http://localhost:5000/customers/${id}`, {
+        method: "DELETE",
+      });
+      var body = response.json();
+
+      if (response.ok) {
+        var allCustomers = [...this.state.customers];
+
+        allCustomers = allCustomers.filter((cust) => {
+          return cust.id != id;
+        });
+
+        this.setState({ customers: allCustomers });
+      }
+    }
   };
 }

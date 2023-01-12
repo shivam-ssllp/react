@@ -1,11 +1,13 @@
 import React, { Component } from "react";
+import { useParams } from "react-router";
 
-export default class NewCustomer extends Component {
+export default class EditCustomer extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { id: "", name: "", city: "", photo: "", phone: "" };
+    // this.state = { id: this.props.match.params.id };
   }
+
   render() {
     return (
       <div className="row">
@@ -85,31 +87,7 @@ export default class NewCustomer extends Component {
     );
   }
 
-  //   On clicking Save button
-  onSaveClick = async (event) => {
-    event.preventDefault();
-    console.log("On Save click running");
-    var customer = {
-      name: this.state.name,
-      address: { city: this.state.city },
-      phone: this.state.phone,
-      photo: this.state.photo,
-    };
-
-    var response = fetch("http://localhost:5000/customers", {
-      method: "POST",
-      body: JSON.stringify(customer),
-      headers: {
-        "content-type": "application/json",
-      },
-    });
-
-    if (response.ok) {
-      var body = await response.json();
-      console.log(body);
-      this.props.history.replace("/customer");
-    } else {
-      console.log("Error" + response.ok);
-    }
-  };
+  componentDidMount() {
+    console.log(this.state.id);
+  }
 }

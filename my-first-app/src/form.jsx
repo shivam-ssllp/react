@@ -77,7 +77,7 @@ export default class Form extends Component {
       this.props.updateIsLoggedInStatus(true);
 
       // navigate to homepage
-      this.props.history.replace("/dashboard");
+      // this.props.history.replace("/dashboard");
     } else {
       // Fail
       this.setState({
