@@ -58,15 +58,6 @@
       "photo": "https://source.unsplash.com/random/?man"
     },
     {
-      "name": "Ayush",
-      "address": {
-        "city": "Lucknow"
-      },
-      "phone": "7905615107",
-      "photo": "kjdsfjdsfjksdfs",
-      "id": 8
-    },
-    {
       "name": "Shivam",
       "address": {
         "city": "Lucknow"
@@ -101,6 +92,24 @@
       "phone": "8732443243",
       "photo": "asskjhjddas",
       "id": 12
+    },
+    {
+      "name": "Alka",
+      "address": {
+        "city": "Banda"
+      },
+      "phone": "3475784373",
+      "photo": "dsdkjnfksjndskjsdkjnds",
+      "id": 13
+    },
+    {
+      "name": "Anuj",
+      "address": {
+        "city": "Lucknow"
+      },
+      "phone": " 3232746736",
+      "photo": "hjdsfdssddbfhdsdss",
+      "id": 14
     }
   ]
 }

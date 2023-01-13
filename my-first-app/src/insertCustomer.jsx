@@ -108,6 +108,7 @@ export default class NewCustomer extends Component {
       var body = await response.json();
       console.log(body);
       this.props.history.replace("/customer");
+      // window.alert("Customer registered.");
     } else {
       console.log("Error" + response.ok);
     }

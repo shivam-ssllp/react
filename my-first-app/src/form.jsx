@@ -74,6 +74,7 @@ export default class Form extends Component {
         message: <span className="text-success">Successfully Logged-in</span>,
       });
 
+      window.localStorage.setItem("loginStatus", "true");
       this.props.updateIsLoggedInStatus(true);
 
       // navigate to homepage

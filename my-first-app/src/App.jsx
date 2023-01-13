@@ -12,6 +12,7 @@ import Sidebar from "./sidebar";
 import ProductById from "./productById";
 import NewCustomer from "./insertCustomer";
 import EditCustomer from "./editCustomer";
+import Registration from "./registration";
 
 export default class App extends Component {
   constructor(props) {
@@ -52,6 +53,7 @@ export default class App extends Component {
               <Route path="/product/:id" element={<ProductById />} />
               <Route path="/new-customer" element={<NewCustomer />} exact />
               <Route path="/edit-customer/:id" element={<EditCustomer />} />
+              <Route path="/register" element={<Registration />} />
               <Route path="*" element={<PageNotFound />} exact />
             </Routes>
           </div>

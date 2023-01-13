@@ -2,6 +2,7 @@ import React from "react";
 import { Component } from "react";
 import { NavLink } from "react-router-dom";
 import "./index.css";
+import isLoggedInStatus from "./Session";
 
 class NavBar extends Component {
   render() {
@@ -32,8 +33,8 @@ class NavBar extends Component {
               id="navbarSupportedContent"
             >
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                {/* Home */}
-                {!this.props.isLoggedIn ? (
+                {/* Login */}
+                {!isLoggedInStatus ? (
                   <li className="nav-item">
                     <NavLink
                       className="nav-link text-light"
@@ -41,7 +42,23 @@ class NavBar extends Component {
                       activeClassName="active"
                       to="/"
                     >
-                      Home
+                      Login
+                    </NavLink>
+                  </li>
+                ) : (
+                  ""
+                )}
+
+                {/* Register */}
+                {!this.props.isLoggedIn ? (
+                  <li className="nav-item">
+                    <NavLink
+                      className="nav-link text-light"
+                      aria-cur
+                      activeClassName="active"
+                      to="/register"
+                    >
+                      Register
                     </NavLink>
                   </li>
                 ) : (
