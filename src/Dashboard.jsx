@@ -15,6 +15,8 @@ let getCart = (orders) => {
 
 let Dashboard = () => {
   let [orders, setOrders] = useState([]);
+  let [showOrderDeletedAlert, setShowOrderDeletedAlert] = useState(false);
+  let [showOrderPlacedAlert, setShowOrderPlacedAlert] = useState(false);
 
   // get Context
   let userContext = useContext(UserContext);
@@ -31,7 +33,7 @@ let Dashboard = () => {
     if (ordersResponse.ok) {
       // status code is 200
       let ordersResponseBody = await ordersResponse.json();
-      console.log(ordersResponseBody);
+      // console.log(ordersResponseBody);
 
       // Get Orders
       let productsResponse = await ProductsService.fetchProducts();
@@ -46,9 +48,9 @@ let Dashboard = () => {
             productsResponseBody,
             order.productId
           );
-          console.log(ordersResponseBody);
+          // console.log(ordersResponseBody);
         });
-        console.log(productsResponseBody);
+        // console.log(productsResponseBody);
         setOrders(ordersResponseBody);
       }
     }
@@ -63,32 +65,61 @@ let Dashboard = () => {
   }, [userContext.user.currentUserId, loadDataFromDatabase]);
 
   // When User clicks Buy Now
-  let onBuyNowClick = async (orderId, userId, productId, quantity) => {
-    if (window.confirm("Do you want to Place order for this product?")) {
-      let updateOrder = {
-        id: orderId,
-        productId: productId,
-        userId: userId,
-        quantity: quantity,
-        isPaymentCompleted: true,
-      };
+  let onBuyNowClick = useCallback(
+    async (orderId, userId, productId, quantity) => {
+      if (window.confirm("Do you want to Place order for this product?")) {
+        let updateOrder = {
+          id: orderId,
+          productId: productId,
+          userId: userId,
+          quantity: quantity,
+          isPaymentCompleted: true,
+        };
 
-      let orderResponse = await fetch(
-        `http://localhost:5000/orders/${orderId}`,
-        {
-          method: "PUT",
-          body: JSON.stringify(updateOrder),
-          headers: { "Content-type": "application/json" },
+        let orderResponse = await fetch(
+          `http://localhost:5000/orders/${orderId}`,
+          {
+            method: "PUT",
+            body: JSON.stringify(updateOrder),
+            headers: { "Content-type": "application/json" },
+          }
+        );
+
+        let orderResponseBody = await orderResponse.json();
+        if (orderResponse.ok) {
+          console.log(orderResponseBody);
+          setShowOrderPlacedAlert(true);
+          loadDataFromDatabase();
         }
-      );
-
-      let orderResponseBody = await orderResponse.json();
-      if (orderResponse.ok) {
-        console.log(orderResponseBody);
-        loadDataFromDatabase();
       }
-    }
-  };
+      console.log("OnBuyNowClick rendered");
+    },
+    [loadDataFromDatabase]
+  );
+
+  // When user clicks on delete button
+  let onDeleteClick = useCallback(
+    async (orderId) => {
+      if (
+        window.confirm("Are you sure to remove this order from this cart ?")
+      ) {
+        let orderResponse = await fetch(
+          `http://localhost:5000/orders/${orderId}`,
+          {
+            method: "DELETE",
+          }
+        );
+
+        if (orderResponse.ok) {
+          let orderResponseBody = await orderResponse.json();
+          console.log(orderResponseBody);
+          setShowOrderDeletedAlert(true);
+          loadDataFromDatabase();
+        }
+      }
+    },
+    [loadDataFromDatabase]
+  );
 
   return (
     <div className="row">
@@ -131,7 +162,6 @@ let Dashboard = () => {
                   quantity={ord.quantity}
                   productName={ord.product.productName}
                   price={ord.product.price}
-                  onBuyNowClick={onBuyNowClick}
                 />
               );
             })}
@@ -142,6 +172,40 @@ let Dashboard = () => {
               Cart{" "}
               <span className="badge bg-info">{getCart(orders).length}</span>
             </h4>
+
+            {/* Order Placed Alert */}
+            {showOrderPlacedAlert ? (
+              <div className="col-12">
+                <div
+                  className="alert alert-success alert-dismissible fade show mt-1"
+                  role="alert"
+                >
+                  Your Order has been Placed
+                  <button className="close" type="button" data-dismiss="alert">
+                    <span>&times;</span>
+                  </button>
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
+
+            {/* Order Deleted Alert */}
+            {showOrderDeletedAlert ? (
+              <div className="col-12">
+                <div
+                  className="alert alert-danger alert-dismissible fade show mt-1"
+                  role="alert"
+                >
+                  Your item has been removed from cart
+                  <button className="close" type="button" data-dismiss="alert">
+                    <span>&times;</span>
+                  </button>
+                </div>
+              </div>
+            ) : (
+              ""
+            )}
 
             {OrdersService.getCart(orders).length === 0 ? (
               <div className="text-danger">No Products in your cart</div>
@@ -160,6 +224,8 @@ let Dashboard = () => {
                   quantity={ord.quantity}
                   productName={ord.product.productName}
                   price={ord.product.price}
+                  onBuyNowClick={onBuyNowClick}
+                  onDeleteClick={onDeleteClick}
                 />
               );
             })}

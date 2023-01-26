@@ -51,6 +51,22 @@ let Navbar = () => {
               ) : (
                 ""
               )}
+
+              {userContext.user.isLoggedIn ? (
+                <li className="nav-item">
+                  <NavLink
+                    className="nav-link"
+                    aria-current="page"
+                    to="/store"
+                    activeclassname="active"
+                  >
+                    Store
+                  </NavLink>
+                </li>
+              ) : (
+                ""
+              )}
+
               {!userContext.user.isLoggedIn ? (
                 <li className="nav-item">
                   <NavLink className="nav-link" to="/" activeclassname="active">

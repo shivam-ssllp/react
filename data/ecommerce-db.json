@@ -119,23 +119,23 @@
     {
       "id": 1,
       "userId": 1,
-      "productId": 1,
-      "quantity": 2,
-      "isPaymentCompleted": true
-    },
-    {
-      "id": 2,
-      "userId": 1,
       "productId": 3,
       "quantity": 12,
       "isPaymentCompleted": true
     },
     {
-      "id": 3,
+      "id": 2,
       "userId": 1,
-      "productId": 4,
-      "quantity": 1,
-      "isPaymentCompleted": false
+      "productId": 2,
+      "quantity": 12,
+      "isPaymentCompleted": true
+    },
+    {
+      "id": 3,
+      "productId": 3,
+      "userId": 1,
+      "quantity": 12,
+      "isPaymentCompleted": true
     }
   ]
 }

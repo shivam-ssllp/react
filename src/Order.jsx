@@ -22,7 +22,14 @@ let Order = (props) => {
               >
                 Buy Now
               </button>
-              <button className="btn btn-sm btn-danger mx-1">Delete</button>
+              <button
+                className="btn btn-sm btn-danger mx-1"
+                onClick={() => {
+                  props.onDeleteClick(props.orderId);
+                }}
+              >
+                Delete
+              </button>
             </div>
           ) : (
             ""

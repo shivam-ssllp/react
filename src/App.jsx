@@ -6,6 +6,7 @@ import Dashboard from "./Dashboard";
 import { HashRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./Navbar";
 import { UserContext } from "./UserContext";
+import Store from "./Store";
 
 function App() {
   let [user, setUser] = useState({
@@ -21,6 +22,7 @@ function App() {
           <Routes>
             <Route path="/" exact={true} element={<Login />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/store" element={<Store />} />
             <Route path="/register" element={<Register />} />
             <Route path="*" element={<NoMatchPage />} />
           </Routes>

@@ -15,3 +15,19 @@ export const ProductsService = {
     return fetch(`http://localhost:5000/products`, { method: "GET" });
   },
 };
+
+export const BrandsService = {
+  fetchBrands: () => {
+    return fetch(`http://localhost:5000/brands`, {
+      method: "GET",
+    });
+  },
+};
+
+export const CategoriesService = {
+  fetchCategories: () => {
+    return fetch(`http://localhost:5000/categories`, {
+      method: "GET",
+    });
+  },
+};
