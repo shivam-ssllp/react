@@ -22,6 +22,9 @@ export const BrandsService = {
       method: "GET",
     });
   },
+  getBrandByBrandId: (brands, brandId) => {
+    return brands.find((brand) => brand.id == brandId);
+  },
 };
 
 export const CategoriesService = {
@@ -29,5 +32,8 @@ export const CategoriesService = {
     return fetch(`http://localhost:5000/categories`, {
       method: "GET",
     });
+  },
+  getBrandByBrandId: (categories, categoryId) => {
+    return categories.find((category) => category.id == categoryId);
   },
 };

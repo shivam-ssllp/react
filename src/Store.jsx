@@ -1,18 +1,17 @@
 import React, { useState, useContext, useEffect } from "react";
-import { BrandsService, CategoriesService } from "./Services";
+import { BrandsService, CategoriesService, ProductsService } from "./Services";
 import { UserContext } from "./UserContext";
 
 let Store = () => {
   // State
   let [brands, setBrands] = useState([]);
   let [categories, setCategories] = useState([]);
+  let [products, setProducts] = useState([]);
   //get User Context
   let userContext = useContext(UserContext);
 
   useEffect(() => {
-    console.log("store rendered");
     (async () => {
-      console.log("async fnction of store rendered");
       // get brands from db
       let brandsResponse = await BrandsService.fetchBrands();
       let brandsResponseBody = await brandsResponse.json();
@@ -29,8 +28,28 @@ let Store = () => {
         category.isChecked = true;
       });
       setCategories(categoriesResponseBody);
+
+      // get Products from db
+      let productsResponse = await ProductsService.fetchProducts();
+      let productsResponseBody = await productsResponse.json();
+      if (productsResponse.ok) {
+        productsResponseBody.forEach((product) => {
+          // set product
+          product.brand = BrandsService.getBrandByBrandId(
+            brands,
+            product.brandId
+          );
+
+          // set category
+          product.category = CategoriesService.getCategoryByCategoryId(
+            categories,
+            product.categoryId
+          );
+          product.isOrdered = false;
+        });
+        setProducts(productsResponseBody);
+      }
     })();
-    console.log(categories);
   }, []);
 
   // Update brandIsChecked
@@ -120,8 +139,9 @@ let Store = () => {
           </div>
         </div>
         <div className="col-lg-9 py-2">
-          {JSON.stringify(brands)}
-          {JSON.stringify(categories)}
+          <div>{JSON.stringify(brands)}</div>
+          <div>{JSON.stringify(categories)}</div>
+          <div>{JSON.stringify(products)}</div>
         </div>
       </div>
     </div>
