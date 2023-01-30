@@ -33,7 +33,7 @@ export const CategoriesService = {
       method: "GET",
     });
   },
-  getBrandByBrandId: (categories, categoryId) => {
+  getCategoryByCategoryId: (categories, categoryId) => {
     return categories.find((category) => category.id == categoryId);
   },
 };

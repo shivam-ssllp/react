@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { BrandsService, CategoriesService, ProductsService } from "./Services";
 import { UserContext } from "./UserContext";
+import Product from "./Product";
 
 let Store = () => {
   // State
@@ -48,6 +49,7 @@ let Store = () => {
           product.isOrdered = false;
         });
         setProducts(productsResponseBody);
+        document.title = "Store - eCommerce";
       }
     })();
   }, []);
@@ -87,7 +89,7 @@ let Store = () => {
             <ul className="list-group list-group-flush">
               {brands.map((brand) => (
                 <li className="list-group-item" key={brand.id}>
-                  <di className="form-check">
+                  <div className="form-check">
                     <input
                       type="checkbox"
                       className="form-check-input"
@@ -104,7 +106,7 @@ let Store = () => {
                     >
                       {brand.brandName}
                     </label>
-                  </di>
+                  </div>
                 </li>
               ))}
             </ul>
@@ -115,7 +117,7 @@ let Store = () => {
             <ul className="list-group list-group-flush">
               {categories.map((category) => (
                 <li className="list-group-item" key={category.id}>
-                  <di className="form-check">
+                  <div className="form-check">
                     <input
                       type="checkbox"
                       className="form-check-input"
@@ -132,16 +134,18 @@ let Store = () => {
                     >
                       {category.categoryName}
                     </label>
-                  </di>
+                  </div>
                 </li>
               ))}
             </ul>
           </div>
         </div>
         <div className="col-lg-9 py-2">
-          <div>{JSON.stringify(brands)}</div>
-          <div>{JSON.stringify(categories)}</div>
-          <div>{JSON.stringify(products)}</div>
+          <div className="row">
+            {products.map((prod) => (
+              <Product key={prod.id} product={prod} />
+            ))}
+          </div>
         </div>
       </div>
     </div>
