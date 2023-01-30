@@ -5,7 +5,6 @@ let Login = () => {
   var [email, setEmail] = useState("");
   var [password, setPassword] = useState("");
   let userContext = useContext(UserContext);
-  console.log(userContext);
 
   let [dirty, setDirty] = useState({
     email: false,

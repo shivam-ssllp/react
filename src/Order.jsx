@@ -1,7 +1,7 @@
 import React from "react";
 
 let Order = (props) => {
-  console.log("rendered", props);
+  // console.log("rendered", props);
   return (
     <div className="card my-2 shadow">
       <div className="card-body">

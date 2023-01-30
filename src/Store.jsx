@@ -16,7 +16,7 @@ let Store = () => {
       // get brands from db
       let brandsResponse = await BrandsService.fetchBrands();
       let brandsResponseBody = await brandsResponse.json();
-      console.log(brandsResponseBody);
+      // console.log(brandsResponseBody);
       brandsResponseBody.forEach((brand) => {
         brand.isChecked = true;
       });
@@ -49,6 +49,7 @@ let Store = () => {
           product.isOrdered = false;
         });
         setProducts(productsResponseBody);
+        console.log(products);
         document.title = "Store - eCommerce";
       }
     })();
@@ -140,12 +141,20 @@ let Store = () => {
             </ul>
           </div>
         </div>
+        {console.log(products)}
         <div className="col-lg-9 py-2">
           <div className="row">
-            {products.map((prod) => (
+            {products.map(
+              (prod) =>
               <Product key={prod.id} product={prod} />
-            ))}
+            )}
           </div>
+          {/* <div className="row">
+            {products.map((prod, i) =>
+              // <Product key={prod.id} product={prod} />
+              // JSON.stringify(prod)
+            )}
+          </div> */}
         </div>
       </div>
     </div>
