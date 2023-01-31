@@ -35,23 +35,23 @@ let Store = () => {
       let productsResponseBody = await productsResponse.json();
       if (productsResponse.ok) {
         productsResponseBody.forEach((product) => {
-          // set product
+          // set brand
           product.brand = BrandsService.getBrandByBrandId(
-            brands,
+            brandsResponseBody,
             product.brandId
           );
 
           // set category
           product.category = CategoriesService.getCategoryByCategoryId(
-            categories,
+            categoriesResponseBody,
             product.categoryId
           );
           product.isOrdered = false;
         });
         setProducts(productsResponseBody);
-        console.log(products);
         document.title = "Store - eCommerce";
       }
+      console.log(products);
     })();
   }, []);
 
@@ -75,6 +75,36 @@ let Store = () => {
     console.log(categories);
   };
 
+  // When user clicks add to cart
+  let onAddToCartClick = (prod) => {
+    (async () => {
+      let newOrder = {
+        userId: userContext.user.currentUserId,
+        productId: prod.id,
+        quantity: 1,
+        isPaymentCompleted: false,
+      };
+
+      let orderResponse = await fetch(`http://localhost:5000/orders`, {
+        method: "POST",
+        body: JSON.stringify(newOrder),
+        headers: { "Content-Type": "application.json" },
+      });
+
+      if (orderResponse.ok) {
+        let orderResponseBody = await orderResponse.json();
+        console.log(orderResponseBody);
+
+        setProducts((products) => {
+          let currentProduct = products.find((p) => p.id == prod.id);
+          currentProduct.isOrdered = true;
+          return products;
+        });
+      } else {
+        console.log(orderResponse, "not got right response");
+      }
+    })();
+  };
   return (
     <div>
       <div className="row py-3 header">
@@ -144,17 +174,14 @@ let Store = () => {
         {console.log(products)}
         <div className="col-lg-9 py-2">
           <div className="row">
-            {products.map(
-              (prod) =>
-              <Product key={prod.id} product={prod} />
-            )}
+            {products.map((prod) => (
+              <Product
+                key={prod.id}
+                product={prod}
+                onAddToCartClick={onAddToCartClick}
+              />
+            ))}
           </div>
-          {/* <div className="row">
-            {products.map((prod, i) =>
-              // <Product key={prod.id} product={prod} />
-              // JSON.stringify(prod)
-            )}
-          </div> */}
         </div>
       </div>
     </div>
