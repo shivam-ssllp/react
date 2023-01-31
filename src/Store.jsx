@@ -88,18 +88,18 @@ let Store = () => {
       let orderResponse = await fetch(`http://localhost:5000/orders`, {
         method: "POST",
         body: JSON.stringify(newOrder),
-        headers: { "Content-Type": "application.json" },
+        headers: { "Content-Type": "application/json" },
       });
 
       if (orderResponse.ok) {
         let orderResponseBody = await orderResponse.json();
-        console.log(orderResponseBody);
 
-        setProducts((products) => {
-          let currentProduct = products.find((p) => p.id == prod.id);
-          currentProduct.isOrdered = true;
-          return products;
+        let prods = products.map((p) => {
+          if (p.id == prod.id) p.isOrdered = true;
+          return p;
         });
+
+        setProducts(prods);
       } else {
         console.log(orderResponse, "not got right response");
       }

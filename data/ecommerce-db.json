@@ -136,9 +136,6 @@
       "userId": 1,
       "quantity": 12,
       "isPaymentCompleted": true
-    },
-    {
-      "id": 4
     }
   ]
 }
