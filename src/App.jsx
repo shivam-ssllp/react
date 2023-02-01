@@ -7,12 +7,14 @@ import { HashRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./Navbar";
 import { UserContext } from "./UserContext";
 import Store from "./Store";
+import ProductsList from "./ProductsList";
 
 function App() {
   let [user, setUser] = useState({
     isLoggedIn: false,
     currentUserId: null,
     currentUserName: null,
+    currentUserRole: null,
   });
   return (
     <UserContext.Provider value={{ user, setUser }}>
@@ -24,6 +26,7 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/store" element={<Store />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/products" element={<ProductsList />} />
             <Route path="*" element={<NoMatchPage />} />
           </Routes>
         </div>

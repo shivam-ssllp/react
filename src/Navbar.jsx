@@ -6,6 +6,10 @@ let Navbar = () => {
   // userContext
   let userContext = useContext(UserContext);
 
+  // useEffect(
+  //   !userContext.user.isLoggedIn ? (window.location.hash = "") : "",
+  //   []
+  // );
   let onLogoutClick = (event) => {
     event.preventDefault();
 
@@ -13,6 +17,7 @@ let Navbar = () => {
       isLoggedIn: false,
       currentUserId: null,
       currentUserName: null,
+      currentUserRole: null,
     });
 
     window.location.hash = "/";
@@ -37,7 +42,8 @@ let Navbar = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              {userContext.user.isLoggedIn ? (
+              {userContext.user.isLoggedIn &&
+              userContext.user.currentUserRole === "user" ? (
                 <li className="nav-item">
                   <NavLink
                     className="nav-link"
@@ -52,7 +58,8 @@ let Navbar = () => {
                 ""
               )}
 
-              {userContext.user.isLoggedIn ? (
+              {userContext.user.isLoggedIn &&
+              userContext.user.currentUserRole === "user" ? (
                 <li className="nav-item">
                   <NavLink
                     className="nav-link"
@@ -61,6 +68,22 @@ let Navbar = () => {
                     activeclassname="active"
                   >
                     Store
+                  </NavLink>
+                </li>
+              ) : (
+                ""
+              )}
+
+              {userContext.user.isLoggedIn &&
+              userContext.user.currentUserRole === "admin" ? (
+                <li className="nav-item">
+                  <NavLink
+                    className="nav-link"
+                    aria-current="page"
+                    to="/products"
+                    activeclassname="active"
+                  >
+                    Products
                   </NavLink>
                 </li>
               ) : (

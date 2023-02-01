@@ -93,11 +93,13 @@ let Login = () => {
             isLoggedIn: true,
             currentUserName: responseBody[0].fullName,
             currentUserId: responseBody[0].id,
+            currentUserRole: responseBody[0].role,
           });
-          window.location.hash = "/dashboard";
-          // props.history.replace({
-          //   pathname: "/dashboard",
-          // });
+          if (responseBody[0].role === "user") {
+            window.location.hash = "/dashboard";
+          } else {
+            window.location.hash = "/products";
+          }
           setLoginMessage(
             <span className="text-success">Successfully Logged In</span>
           );

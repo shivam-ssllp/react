@@ -8,6 +8,9 @@ let Store = () => {
   let [brands, setBrands] = useState([]);
   let [categories, setCategories] = useState([]);
   let [products, setProducts] = useState([]);
+  let [productsToShow, setProductsToShow] = useState([]);
+  let [search, setSearch] = useState("");
+
   //get User Context
   let userContext = useContext(UserContext);
 
@@ -31,7 +34,10 @@ let Store = () => {
       setCategories(categoriesResponseBody);
 
       // get Products from db
-      let productsResponse = await ProductsService.fetchProducts();
+      let productsResponse = await fetch(
+        `http://localhost:5000/products?productName_like=${search}`,
+        { method: "GET" }
+      );
       let productsResponseBody = await productsResponse.json();
       if (productsResponse.ok) {
         productsResponseBody.forEach((product) => {
@@ -49,11 +55,32 @@ let Store = () => {
           product.isOrdered = false;
         });
         setProducts(productsResponseBody);
+        setProductsToShow(productsResponseBody);
         document.title = "Store - eCommerce";
       }
-      console.log(products);
     })();
-  }, []);
+  }, [search]);
+
+  // updateProductsToShow
+  let updateProductsToShow = () => {
+    setProductsToShow(
+      products
+        .filter((prod) => {
+          return (
+            categories.filter(
+              (category) => category.id == prod.categoryId && category.isChecked
+            ).length > 0
+          );
+        })
+        .filter((prod) => {
+          return (
+            brands.filter(
+              (brand) => brand.id === prod.brandId && brand.isChecked
+            ).length > 0
+          );
+        })
+    );
+  };
 
   // Update brandIsChecked
   let updateBrandIsChecked = (id) => {
@@ -62,7 +89,7 @@ let Store = () => {
       return brd;
     });
     setBrands(brandsData);
-    console.log(brands);
+    updateProductsToShow();
   };
 
   // Update categoryIsChecked
@@ -72,7 +99,7 @@ let Store = () => {
       return cat;
     });
     setCategories(categoriesData);
-    console.log(categories);
+    updateProductsToShow();
   };
 
   // When user clicks add to cart
@@ -93,13 +120,13 @@ let Store = () => {
 
       if (orderResponse.ok) {
         let orderResponseBody = await orderResponse.json();
-
         let prods = products.map((p) => {
           if (p.id == prod.id) p.isOrdered = true;
           return p;
         });
 
         setProducts(prods);
+        updateProductsToShow();
       } else {
         console.log(orderResponse, "not got right response");
       }
@@ -109,7 +136,22 @@ let Store = () => {
     <div>
       <div className="row py-3 header">
         <div className="col-lg-3">
-          <h4>Store</h4>
+          <h4>
+            Store{""}
+            <span>{productsToShow.length}</span>
+          </h4>
+        </div>
+        <div className="col-lg-9">
+          <input
+            type="search"
+            value={search}
+            placeholder="Search"
+            className="form-control"
+            autoFocus="autofocus"
+            onChange={(event) => {
+              setSearch(event.target.value);
+            }}
+          />
         </div>
       </div>
       <div className="row">
@@ -174,7 +216,7 @@ let Store = () => {
         {console.log(products)}
         <div className="col-lg-9 py-2">
           <div className="row">
-            {products.map((prod) => (
+            {productsToShow.map((prod) => (
               <Product
                 key={prod.id}
                 product={prod}

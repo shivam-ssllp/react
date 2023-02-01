@@ -102,7 +102,8 @@
       "dateOfBirth": "2002-08-06",
       "gender": "male",
       "country": "India",
-      "newsletters": true
+      "newsletters": true,
+      "role": "user"
     },
     {
       "email": "shivssk786@gmail.com",
@@ -112,7 +113,19 @@
       "gender": "male",
       "country": "India",
       "receiveNewsLetters": "",
-      "id": 2
+      "id": 2,
+      "role": "user"
+    },
+    {
+      "email": "admin@gmail.com",
+      "password": "Admin@123",
+      "fullName": "Shivam Singh Kushwaha",
+      "dateOfBirth": "2000-01-01",
+      "gender": "male",
+      "country": "India",
+      "receiveNewsLetters": "",
+      "id": 3,
+      "role": "admin"
     }
   ],
   "orders": [
@@ -136,6 +149,76 @@
       "userId": 1,
       "quantity": 12,
       "isPaymentCompleted": true
+    },
+    {
+      "userId": 2,
+      "productId": 1,
+      "quantity": 1,
+      "isPaymentCompleted": false,
+      "id": 4
+    },
+    {
+      "userId": 2,
+      "productId": 2,
+      "quantity": 1,
+      "isPaymentCompleted": false,
+      "id": 5
+    },
+    {
+      "userId": 2,
+      "productId": 3,
+      "quantity": 1,
+      "isPaymentCompleted": false,
+      "id": 6
+    },
+    {
+      "userId": 2,
+      "productId": 4,
+      "quantity": 1,
+      "isPaymentCompleted": false,
+      "id": 7
+    },
+    {
+      "userId": 2,
+      "productId": 5,
+      "quantity": 1,
+      "isPaymentCompleted": false,
+      "id": 8
+    },
+    {
+      "userId": 2,
+      "productId": 6,
+      "quantity": 1,
+      "isPaymentCompleted": false,
+      "id": 9
+    },
+    {
+      "userId": 2,
+      "productId": 7,
+      "quantity": 1,
+      "isPaymentCompleted": false,
+      "id": 10
+    },
+    {
+      "userId": 2,
+      "productId": 1,
+      "quantity": 1,
+      "isPaymentCompleted": false,
+      "id": 11
+    },
+    {
+      "userId": 2,
+      "productId": 1,
+      "quantity": 1,
+      "isPaymentCompleted": false,
+      "id": 12
+    },
+    {
+      "userId": 2,
+      "productId": 1,
+      "quantity": 1,
+      "isPaymentCompleted": false,
+      "id": 13
     }
   ]
 }

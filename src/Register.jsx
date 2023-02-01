@@ -151,6 +151,7 @@ let Register = () => {
           gender: state.gender,
           country: state.country,
           receiveNewsLetters: state.receiveNewsLetters,
+          role: "user",
         }),
         headers: {
           "Content-type": "application/json",
@@ -164,6 +165,7 @@ let Register = () => {
           isLoggedIn: true,
           currentUserName: responseBody.fullName,
           currentUserId: responseBody.id,
+          currentUserRole: responseBody[0].role,
         });
         window.location.hash = "/dashboard";
         setMessage(
