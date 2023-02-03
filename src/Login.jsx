@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { UserContext } from "./UserContext";
 
 let Login = () => {
   var [email, setEmail] = useState("");
   var [password, setPassword] = useState("");
   let userContext = useContext(UserContext);
+  let myEmailRef = useRef();
 
   let [dirty, setDirty] = useState({
     email: false,
@@ -21,6 +22,7 @@ let Login = () => {
 
   useEffect(() => {
     document.title = "Login - eCommerce";
+    myEmailRef.current.focus();
   });
 
   let validate = () => {
@@ -88,12 +90,14 @@ let Login = () => {
       if (response.ok) {
         let responseBody = await response.json();
         if (responseBody.length > 0) {
-          userContext.setUser({
-            ...userContext.user,
-            isLoggedIn: true,
-            currentUserName: responseBody[0].fullName,
-            currentUserId: responseBody[0].id,
-            currentUserRole: responseBody[0].role,
+          userContext.dispatch({ type: "somework", payload: { x: 10, y: 20 } });
+          userContext.dispatch({
+            type: "login",
+            payload: {
+              currentUserName: responseBody[0].fullName,
+              currentUserId: responseBody[0].id,
+              currentUserRole: responseBody[0].role,
+            },
           });
           if (responseBody[0].role === "user") {
             window.location.hash = "/dashboard";
@@ -158,6 +162,7 @@ let Login = () => {
                   setDirty({ ...dirty, email: true });
                   validate();
                 }}
+                ref={myEmailRef}
               />
 
               <div className="text-danger">

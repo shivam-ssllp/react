@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useMemo } from "react";
 import {
   BrandsService,
   ProductsService,
@@ -13,12 +14,15 @@ let ProductsList = () => {
   let [originalProducts, setOriginalProducts] = useState([]);
   let [sortBy, setSortBy] = useState("productName");
   let [sortOrder, setSortOrder] = useState("ASC"); // ASC or DESC
+  let [brands, setBrands] = useState([]); // ASC or DESC
+  let [selectedBrand, setSelectedBrand] = useState(""); // ASC or DESC
 
   useEffect(() => {
     (async () => {
       // request to brands table
       let brandsResponse = await BrandsService.fetchBrands();
       let brandsResponseBody = await brandsResponse.json();
+      setBrands(brandsResponseBody);
 
       // request to categories table
       let categoriesResponse = await CategoriesService.fetchCategories();
@@ -51,16 +55,27 @@ let ProductsList = () => {
     })();
   }, [search]);
 
+  let filteredProducts = useMemo(() => {
+    console.log("filteredProducts", originalProducts, selectedBrand);
+    return originalProducts.filter(
+      (prod) => prod.brand.brandName.indexOf(selectedBrand) >= 0
+    );
+  }, [originalProducts, selectedBrand]);
+
   // When user clicks on a column name to sort
   let onSortColumnNameClick = (event, columnName) => {
     event.preventDefault(); //avoid refresh
     setSortBy(columnName);
     let negatedSortOrder = sortOrder === "ASC" ? "DESC" : "ASC";
     setSortOrder(negatedSortOrder);
-    setProducts(
-      SortService.getSortedArray(originalProducts, columnName, negatedSortOrder)
-    );
   };
+
+  // useEffect - Executes on each change of filteredBrands, sortBy, sortOrder
+  useEffect(() => {
+    setProducts(
+      SortService.getSortedArray(filteredProducts, sortBy, sortOrder)
+    );
+  }, [filteredProducts, sortBy, sortOrder]);
 
   // render column name
   let getColumnHeader = (columnName, displayName) => {
@@ -90,7 +105,7 @@ let ProductsList = () => {
               <span className="badge bg-secondary">{products.length}</span>
             </h2>
           </div>
-          <div className="col-lg-9">
+          <div className="col-lg-6">
             <input
               type="search"
               placeholder="Search"
@@ -101,6 +116,22 @@ let ProductsList = () => {
                 setSearch(event.target.value);
               }}
             />
+          </div>
+          <div className="col-lg-3">
+            <select
+              className="form-control"
+              value={selectedBrand}
+              onChange={(event) => {
+                setSelectedBrand(event.target.value);
+              }}
+            >
+              <option value="">All Brands</option>
+              {brands.map((brand) => (
+                <option value={brand.brandName} key={brand.id}>
+                  {brand.brandName}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
       </div>
